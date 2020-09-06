@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh '''go build -o expansion services/horizon
+        sh '''go install services/horizon
 '''
       }
     }
