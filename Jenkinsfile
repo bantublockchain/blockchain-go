@@ -7,5 +7,13 @@ pipeline {
       }
     }
 
+    stage('dockerize') {
+      steps {
+        sh '''docker build -t interstellartech/blockchain-expansion -f services/horizon/Dockerfile services/horizon
+
+'''
+      }
+    }
+
   }
 }
