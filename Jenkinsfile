@@ -1,4 +1,10 @@
 pipeline {
+
+  environment {
+    registry = 'insterllartech/blockchain-expansion'
+    registryCredential = 'dockerhub-id'
+  }
+
   agent any
   stages {
     stage('build') {
@@ -8,13 +14,30 @@ pipeline {
       }
     }
 
-    stage('dockerize') {
-      steps {
-        sh '''docker build -t interstellartech/blockchain-expansion -f services/horizon/Dockerfile services/horizon
-
-'''
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build("$registry:$BUILD_NUMBER", "-f services/horizon/Dockerfile", "services/horizon")
+        }
       }
     }
 
-  }
+    stage('Deploy Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+            dockerImage.push('latest')
+          }
+        }
+      }
+    }
+
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
+      }
+    }
+    
+  
 }
