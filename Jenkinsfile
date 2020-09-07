@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    registry = 'insterllartech/blockchain-expansion'
+    registry = 'interstellartech/blockchain-expansion'
     registryCredential = 'dockerhub-interstellartech'
   }
 
