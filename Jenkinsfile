@@ -2,7 +2,7 @@ pipeline {
 
   environment {
     registry = 'insterllartech/blockchain-expansion'
-    registryCredential = 'dockerhub-id'
+    registryCredential = 'dockerhub-interstellartech'
   }
 
   agent any
