@@ -1,3 +1,3 @@
-FROM debian:buster-slim
+FROM ubuntu:focal
 COPY expansion /sbin/expansion
 ENTRYPOINT ["/sbin/expansion"]
